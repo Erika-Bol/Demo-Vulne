@@ -1,0 +1,33 @@
+name: CI Pipeline
+
+# Ejecuta el workflow en cada push o pull request a la rama principal
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # Step 1: Chequear el repositorio
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    # Step 2: Configurar la versión de Node.js (u otro lenguaje si es diferente)
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    # Step 3: Instalar las dependencias del proyecto
+    - name: Install dependencies
+      run: npm install
+
+    # Step 4: Ejecutar tests
+    - name: Run tests
+      run: npm test
